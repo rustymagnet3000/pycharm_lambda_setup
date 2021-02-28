@@ -27,6 +27,8 @@ CAKE_RECIPE = {
         "secret_sauce": get_secret_ingrediant(),
     }
 
-if __name__ == "__main__":
-    send_cake_recipe()
 
+def rm_handler(event, context):
+    print('inside')
+    send_cake_recipe()
+    return "fired"

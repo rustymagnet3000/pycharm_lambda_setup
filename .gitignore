@@ -4,6 +4,11 @@ __pycache__/
 *$py.class
 .idea
 
+# zip file generated with all dependencies
+my-deployment-package.zip
+package/
+response.json
+
 # CircleCI intermediate file not required
 process.yml
 

@@ -23,3 +23,7 @@ circleci local execute -c process.yml --job build-and-test
 circleci local execute -c process.yml --job build-and-test -e SECRET_SAUCE=chocolate
 ```
 
+### AWS Command Line
+```bash
+aws iam create-role --role-name lambda-ex --assume-role-policy-document file://trust-policy.json
+```

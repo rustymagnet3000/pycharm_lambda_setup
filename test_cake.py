@@ -1,15 +1,15 @@
-import main
+import demo_lambda
 
 
 def test_failed_send_cake_recipe(mocker):
     print("[*]Patching")
-    mocker.patch('main.send_cake_recipe', return_value=False)
-    assert main.send_cake_recipe() is False
+    mocker.patch('demo_lambda.send_cake_recipe', return_value=False)
+    assert demo_lambda.send_cake_recipe() is False
 
 
 def test_live_send_cake_recipe():
-    assert main.send_cake_recipe() is True
+    assert demo_lambda.send_cake_recipe() is True
 
 
 def test_get_environment_variable():
-    assert main.get_secret_ingrediant() in 'chocolate'
+    assert demo_lambda.get_secret_ingrediant() in 'chocolate'
