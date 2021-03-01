@@ -29,6 +29,5 @@ CAKE_RECIPE = {
 
 
 def rm_handler(event, context):
-    print('inside')
-    send_cake_recipe()
-    return "fired"
+    return send_cake_recipe()
+
