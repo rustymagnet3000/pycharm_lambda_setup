@@ -8,6 +8,8 @@ __pycache__/
 my-deployment-package.zip
 package/
 response.json
+out.txt
+.aws-sam/build
 
 # CircleCI intermediate file not required
 process.yml

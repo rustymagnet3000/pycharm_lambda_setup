@@ -4,11 +4,27 @@ A simple `Python` handler that sends a cake recipe to `httpbin.org`.  The server
 
 It is single `HTTP Post` request with a single `environment variable`.
 
-### Interesting pieces:
+### Run Lambda from within PyCharm
 
-- It builds on `CircleCI`, when you push code changes
-- You can run `lambda` locally - inside `PyCharm` - via a `PyCharm plug-in`
-- You can test the `CircleCI` setup locally
+You can configure `PyCharm` in almost anyway you want with `plug-ins`. I chose to have different configurations that could:
+
+1. run locally ( thanks to `python-lambda-local` )
+2. Deploy to local `Docker` container
+3. run just unit tests ( like `CircleCI` )
+4. Deploy to `AWS Lambda`
+     
+
+![](.README_images/pycharm_config_options.png)
+
+### Continuous Integration
+
+The repo pushes to `github`.  It is configured to auto-build on `CircleCI`, when you push code changes.
+All the `CircleCI` setup locally can be tested locally.
+  
+
+- Pass in `export SECRET_SAUCE="chocolate"`
+
+
 
 ### Run lambda locally from command line
 
@@ -86,22 +102,5 @@ aws lambda invoke out.txt \
     --query 'LogResult' \
     --output text |  base64 -d
 ```
-
-### Invoke and debug
-
-```bash
- aws lambda invoke out.txt --debug\
-    --function-name MyPyLambdaFunction \
-    --log-type Tail \
-    --query 'LogResult' \
-    --output text |  base64 -d
-```
-
-
-### TBD
-
-- Pass in `export SECRET_SAUCE="chocolate"`
-
-- Run the deployment to `lambda` from inside of `PyCharm`
 
 
