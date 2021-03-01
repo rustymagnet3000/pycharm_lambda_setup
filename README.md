@@ -27,11 +27,10 @@ This is a simple way to pass in `Environment Variables`.
 ![](.README_images/pycharm_new_pytest_config.png)
 
 
-### Build with CircleCI
+### Build locally with CircleCI
 
 ```bash
-circleci local execute -c process.yml --job build-and-test
-
+circleci config process .circleci/config.yml > process.yml
 circleci local execute -c process.yml --job build-and-test -e SECRET_SAUCE=chocolate
 ```
 
