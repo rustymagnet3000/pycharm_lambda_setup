@@ -7,7 +7,7 @@ It is single `HTTP Post` request with a single `environment variable`.
 ### Interesting pieces:
 
 - It builds on `CircleCI`, when you push code changes
-- You can the `lambda` locally inside PyCharm
+- You can run `lambda` locally - inside `PyCharm` - via a `PyCharm plug-in`
 - You can test the `CircleCI` setup locally
 
 ### Run lambda locally from command line
@@ -40,12 +40,68 @@ circleci local execute -c process.yml --job build-and-test -e SECRET_SAUCE=choco
 ```
 
 
-### Run on AWS Lambda
+### Deploy to AWS Lambda
 
-If it works locally, then you still have to get AWS setup mirror the local setup:
+#### Create
+
+```bash
+aws lambda create-function \
+    --function-name MyPyLambdaFunction \
+    --runtime python3.7 \
+    --zip-file fileb://my-deployment-package.zip \
+    --handler demo_lambda.rm_handler \
+    --role arn:aws:iam::XXXXXXXXX:role/rm-lambda-demo-role
+```
+
+#### Zip up code and dependencies
+
+```bash
+ pip3 install -r requirements.txt --target ./package
+cd package
+zip -r ../my-deployment-package.zip .
+cd ..
+zip -g my-deployment-package.zip demo_lambda.py
+```
+
+#### Update
+
+Code change:
+
+`zip -g my-deployment-package.zip demo_lambda.py`
+
+Then upload:
+
+```bash
+aws lambda update-function-code \
+    --function-name  MyPyLambdaFunction \
+    --zip-file fileb://my-deployment-package.zip
+```
+
+### Invoke
+
+```bash
+aws lambda invoke out.txt \
+    --function-name MyPyLambdaFunction \
+    --log-type Tail \
+    --query 'LogResult' \
+    --output text |  base64 -d
+```
+
+### Invoke and debug
+
+```bash
+ aws lambda invoke out.txt --debug\
+    --function-name MyPyLambdaFunction \
+    --log-type Tail \
+    --query 'LogResult' \
+    --output text |  base64 -d
+```
+
+
+### TBD
 
 - Pass in `export SECRET_SAUCE="chocolate"`
-  
-- Validate it passes via the `awsCLI`
+
+- Run the deployment to `lambda` from inside of `PyCharm`
 
 
