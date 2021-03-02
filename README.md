@@ -10,11 +10,11 @@ You can configure `PyCharm` in almost anyway with `plug-ins`:
 
 <!-- TOC depthfrom:2 depthto:2 withlinks:true updateonsave:true orderedlist:false -->
 
-- [Run lambda locally from command line](#run-lambda-locally-from-command-line)
-- [Run Unit Tests locally](#run-unit-tests-locally)
-- [Run as local lambda](#run-as-local-lambda)
-- [Build locally with CircleCI](#build-locally-with-circleci)
+- [Run lambda locally, inside PyChram](#run-lambda-locally-inside-pychram)
+- [Run locally inside a Docker container](#run-locally-inside-a-docker-container)
 - [Deploy to AWS Lambda from command line](#deploy-to-aws-lambda-from-command-line)
+- [Run Unit Tests locally](#run-unit-tests-locally)
+- [Build locally with CircleCI](#build-locally-with-circleci)
 
 <!-- /TOC -->
 
@@ -22,23 +22,40 @@ After setting up new `configurations` my final `PyCharm` setup was:
 
 ![config_options](.README_images/pycharm_config_options.png)
 
-## Run lambda locally from command line
+## Run lambda locally, inside PyChram
+
+The quickest way to run a `lambda` inside of `PyCharm` used a `shell-script`.
+
+CHeck the `Jetbrains plug-in` is actually installed:
+
+![free_shell_plugin](.README_images/free_shell_plugin.png)
+
+Install the `python dependency`:
 
 ```bash
 pip3 install python-lambda-local
-python-lambda-local -f rm_handler demo_lambda.py inputs.json
 ```
 
-To enabled `control + r` to run the configuration, follow this AWS article:
+Setup the `configuration`:
 
-### Run locally inside a `Docker` container
+![shelL_config_setup](.README_images/config_shell_red.png)
 
-Run lambda locally within PyCharm, inside Docker Container
+The shell-script:
+
+```bash
+#!/bin/bash
+echo "[*]running lambda from Pycharm"
+export SECRET_SAUCE="sprinkles"
+python-lambda-local -f "$1" "$2" "$3"
+```
+
+## Run locally inside a `Docker` container
+
 Install the `plug-in`:
 
 ![plug-in-preferences](.README_images/plug-in.png)
 
-Then - assuming you have `Docker Desktop` installed, you just need to setup a new `configuration` in `PyCharm`:
+Then - assuming you have `Docker Desktop` installed - you just need to setup a new `configuration` in `PyCharm`:
 
 ![docker-setup](.README_images/pycharm_docker.png)
 
@@ -46,32 +63,9 @@ Then specify that you want to run function inside a container:
 
 ![container-step](.README_images/765e0c94.png)
 
-## Run Unit Tests locally
-
-When testing locally, instead of running from `terminal`, you can add a `New Configuration` in `PyCharm`.
-
-This is a simple way to pass in `Environment Variables` and checks `Unit Tests` before passing to `CircleCI`.
-
-![](.README_images/pycharm_new_pytest_config.png)
-
-## Run as local `lambda`
-
-<https://medium.com/@bezdelev/how-to-test-a-python-aws-lambda-function-locally-with-pycharm-run-configurations-6de8efc4b206>
-
-
-## Build locally with CircleCI
-
-The repo pushed to `github`.  It was configured to auto-build on `CircleCI`, when you pushed code changes.
-All the `CircleCI` setup locally could be tested locally.
-  
-```bash
-circleci config process .circleci/config.yml > process.yml
-circleci local execute -c process.yml --job build-and-test -e SECRET_SAUCE=chocolate
-```
-
 ## Deploy to `AWS Lambda` from command line
 
-#### Create
+### Create
 
 ```bash
 aws lambda create-function \
@@ -82,7 +76,7 @@ aws lambda create-function \
     --role arn:aws:iam::XXXXXXXXX:role/rm-lambda-demo-role
 ```
 
-#### Zip up code and dependencies
+### Compress code and dependencies
 
 ```bash
 pip3 install -r requirements.txt --target ./package
@@ -92,7 +86,7 @@ cd ..
 zip -g my-deployment-package.zip demo_lambda.py
 ```
 
-#### Update
+### Update
 
 Code change:
 
@@ -114,4 +108,20 @@ aws lambda invoke out.txt \
     --log-type Tail \
     --query 'LogResult' \
     --output text |  base64 -d
+```
+
+## Run Unit Tests locally
+
+When testing locally - before deploying to `CircleCI` or `AWS` - instead of running `pytest` commands from `terminal`, you can add a `New Configuration` in `PyCharm`.  This is a simple way to pass in `Environment Variables` and check `Unit Tests` pass without leaving `PyCharm`.
+
+![pytest_config](.README_images/pycharm_new_pytest_config.png)
+
+## Build locally with CircleCI
+
+The repo pushed to `github`.  It was configured to auto-build on `CircleCI`, when you pushed code changes.
+All the `CircleCI` setup locally could be tested locally.
+  
+```bash
+circleci config process .circleci/config.yml > process.yml
+circleci local execute -c process.yml --job build-and-test -e SECRET_SAUCE=chocolate
 ```
