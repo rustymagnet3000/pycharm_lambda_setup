@@ -4,6 +4,13 @@ __pycache__/
 *$py.class
 .idea
 
+# zip file generated with all dependencies
+my-deployment-package.zip
+package/
+response.json
+out.txt
+.aws-sam/build
+
 # CircleCI intermediate file not required
 process.yml
 
