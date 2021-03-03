@@ -12,6 +12,7 @@ You can configure `PyCharm` in almost anyway with `plug-ins`:
 
 - [Run lambda locally, inside PyChram](#run-lambda-locally-inside-pychram)
 - [Run locally inside a Docker container](#run-locally-inside-a-docker-container)
+- [Deploy to AWS Lambda from PyCharm](#deploy-to-aws-lambda-from-pycharm)
 - [Deploy to AWS Lambda from command line](#deploy-to-aws-lambda-from-command-line)
 - [Run Unit Tests locally](#run-unit-tests-locally)
 - [Build locally with CircleCI](#build-locally-with-circleci)
@@ -36,7 +37,7 @@ Install the `python dependency`:
 pip3 install python-lambda-local
 ```
 
-Setup the `configuration`:
+Set up the `configuration`:
 
 ![shelL_config_setup](.README_images/config_shell_red.png)
 
@@ -51,6 +52,16 @@ python-lambda-local -f "$1" "$2" "$3"
 
 ## Run locally inside a `Docker` container
 
+Get the `aws-sam-cli` client:
+
+```bash
+brew install aws-sam-cli
+brew upgrade
+brew update
+brew tap aws/tap
+brew install aws-sam-cli
+```
+
 Install the `plug-in`:
 
 ![plug-in-preferences](.README_images/plug-in.png)
@@ -62,6 +73,16 @@ Then - assuming you have `Docker Desktop` installed - you just need to setup a n
 Then specify that you want to run function inside a container:
 
 ![container-step](.README_images/765e0c94.png)
+
+## Deploy to `AWS Lambda` from PyCharm
+
+After you have the `aws-sam-cli` client:
+
+![deploy_to_aws](.README_images/deploy_to_aws.png)
+
+For more details:
+
+<https://medium.com/axcess-io/executing-aws-lambda-locally-in-pycharm-and-deploy-to-aws-3b38ab459a61>
 
 ## Deploy to `AWS Lambda` from command line
 
