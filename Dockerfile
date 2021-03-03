@@ -33,4 +33,4 @@ WORKDIR "$HOME"
 COPY ./src .
 
 # Container start
-CMD [ "python", "./main.py" ]
+CMD [ "python", "./demo_lambda.py" ]
