@@ -4,7 +4,7 @@ Resources:
     Properties:
       Timeout: 5
       MemorySize: 192
-      Handler: demo_lambda.rm_handler
+      Handler: src/demo_lambda.rm_handler
       CodeUri: /Users/bobbyy/Coding/demo_lambda
       Runtime: python3.7
       Environment:

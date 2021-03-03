@@ -146,3 +146,7 @@ All the `CircleCI` setup locally could be tested locally.
 circleci config process .circleci/config.yml > process.yml
 circleci local execute -c process.yml --job build-and-test -e SECRET_SAUCE=chocolate
 ```
+
+References:
+
+<https://github.com/CircleCI-Public>

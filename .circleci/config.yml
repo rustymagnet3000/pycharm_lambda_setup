@@ -1,21 +1,21 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
   build-and-test:
-    executor: python/default
+    docker:
+      - image: cimg/python:3.8
+
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
       - run:
-          command: |
-            pwd
-            python -m pytest -xsv test_cake.py
-          name: PyTest_start
+      name: Build docker image
+      command: |
+        docker build -t "${CIRCLE_PROJECT_REPONAME}" .
+      - run:
+      name: Run unit tests
+      command: |
+        pwd
+        python -m pytest -xsv test_cake.py
 
 workflows:
   main:
