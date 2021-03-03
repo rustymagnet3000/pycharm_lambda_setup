@@ -10,6 +10,10 @@ package/
 response.json
 out.txt
 .aws-sam/build
+ImportToken*
+PublicKey*
+Plaintext*
+EncryptedKeyMaterial*
 
 # CircleCI intermediate file not required
 process.yml

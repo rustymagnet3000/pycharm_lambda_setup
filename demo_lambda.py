@@ -1,6 +1,14 @@
+from base64 import b64decode
 import requests
 import os
 from json import loads
+import boto3
+
+# ENCRYPTED = os.environ['SECRET_SAUCE']
+# DECRYPTED = boto3.client('kms').decrypt(
+#     CiphertextBlob=b64decode(ENCRYPTED),
+#     EncryptionContext={'rm_handler': os.environ['MyPyLambdaFunction']}
+# )['Plaintext'].decode('utf-8')
 
 
 def get_secret_ingrediant():
