@@ -25,6 +25,6 @@ HOSTNAME = "https://httpbin.org/"
 API_PATH = '{0}post'.format(HOSTNAME)
 
 
-def rm_handler(event, context):
+def handler(event, context):
     recipe_response = send_cake_recipe(event["spice"])
     return loads(recipe_response.content.decode('utf-8'))

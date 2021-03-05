@@ -104,7 +104,7 @@ pip3 install -r requirements.txt --target ./package
 cd package
 zip -r ../my-deployment-package.zip .
 cd ..
-zip -g my-deployment-package.zip demo_lambda.py
+zip -g my-deployment-package.zip app.py
 ```
 
 ### Update

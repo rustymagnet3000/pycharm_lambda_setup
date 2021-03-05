@@ -1,4 +1,4 @@
-import demo_lambda
+import app
 from requests.models import Response
 
 
@@ -12,15 +12,15 @@ def generate_bad_response():
 
 
 def test_unauthorized_send_cake_recipe(mocker):
-    mocker.patch('demo_lambda.send_cake_recipe', return_value=generate_bad_response())
-    response = demo_lambda.send_cake_recipe("bananas")
+    mocker.patch('app.send_cake_recipe', return_value=generate_bad_response())
+    response = app.send_cake_recipe("bananas")
     assert response.status_code == 401
 
 
 def test_send_cake_recipe():
-    response = demo_lambda.send_cake_recipe("nuts")
+    response = app.send_cake_recipe("nuts")
     assert response.status_code == 200
 
 
 def test_get_environment_variable():
-    assert demo_lambda.get_secret_ingrediant() in 'chocolate'
+    assert app.get_secret_ingrediant() in 'chocolate'
