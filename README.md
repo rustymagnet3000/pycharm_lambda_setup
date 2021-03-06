@@ -50,7 +50,7 @@ export SECRET_SAUCE="sprinkles"
 python-lambda-local -f "$1" "$2" "$3"
 ```
 
-## Run locally inside a `Docker` container
+## Run locally with sam
 
 Get the `aws-sam-cli` client:
 
