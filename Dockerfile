@@ -1,9 +1,8 @@
 # Define global args
 ARG RUNTIME_VERSION="3.7"
-ARG FUNCTION_DIR="/home/app/"
 
-# Pull base image. Purposely removed #amazon/aws-lambda-python:3.7
-FROM python:${RUNTIME_VERSION}-slim
+# Pull base image
+FROM public.ecr.aws/lambda/python:${RUNTIME_VERSION}
 
 # Set up ( and activate ) virtual environment
 ENV VIRTUAL_ENV=/opt/venv
@@ -14,18 +13,12 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt .
 
 # Install dependencies
-RUN echo $PATH
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Extend preferred base images to be Lambda compatible.
-RUN pip install awslambdaric --target "${PWD}"
-
 # Copy source code to working directory
-COPY ./src .
+COPY ./src ${LAMBDA_TASK_ROOT}
 
 # Run lambda
-WORKDIR /var/task/
-RUN echo "$PWD"
-RUN ls -l
+WORKDIR ${LAMBDA_TASK_ROOT}
 CMD [ "app.handler" ]
