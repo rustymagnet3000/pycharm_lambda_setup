@@ -10,8 +10,9 @@ You can configure `PyCharm` in almost anyway with `plug-ins`:
 
 <!-- TOC depthfrom:2 depthto:2 withlinks:true updateonsave:true orderedlist:false -->
 
-- [Run lambda locally, inside PyChram](#run-lambda-locally-inside-pychram)
-- [Run locally inside a Docker container](#run-locally-inside-a-docker-container)
+- [Run lambda locally, inside PyCharm](#run-lambda-locally-inside-pycharm)
+- [Run lambda locally, with sam](#run-lambda-locally-with-sam)
+- [Run lambda locally, with sam + Dockerfile](#run-lambda-locally-with-sam--dockerfile)
 - [Deploy to AWS Lambda from PyCharm](#deploy-to-aws-lambda-from-pycharm)
 - [Deploy to AWS Lambda from command line](#deploy-to-aws-lambda-from-command-line)
 - [Run Unit Tests locally](#run-unit-tests-locally)
@@ -23,7 +24,7 @@ After setting up new `configurations` my final `PyCharm` setup was:
 
 ![config_options](.README_images/pycharm_config_options.png)
 
-## Run lambda locally, inside PyChram
+## Run lambda locally, inside PyCharm
 
 The quickest way to run a `lambda` inside of `PyCharm` used a `shell-script`.
 
@@ -50,7 +51,7 @@ export SECRET_SAUCE="sprinkles"
 python-lambda-local -f "$1" "$2" "$3"
 ```
 
-## Run locally with sam
+## Run lambda locally, with sam
 
 Get the `aws-sam-cli` client:
 
@@ -73,6 +74,18 @@ Then - assuming you have `Docker Desktop` installed - you just need to setup a n
 Then specify that you want to run function inside a container:
 
 ![container-step](.README_images/765e0c94.png)
+
+## Run lambda locally, with sam + Dockerfile
+
+Amazon released [instructions](https://aws.amazon.com/blogs/compute/using-container-image-support-for-aws-lambda-with-aws-sam/) on this option. From the command line you can `sam init` and select options:
+
+1. AWS Quick Start Templates
+2. Image
+3. Amazon/python3.8-base
+
+This will create a demo project for you.  Importantly, it will create the `template.yarn` file that `sam` reads.  From within PyCharm you can then create a `new configuration` that is the same as the previous but this one reads from the `template.yarn`.
+
+
 
 ## Deploy to `AWS Lambda` from PyCharm
 
