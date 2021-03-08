@@ -1,7 +1,6 @@
 import requests
 import os
-from json import loads
-import sys
+from json import loads, dumps
 
 
 def get_secret_ingrediant():
@@ -28,5 +27,16 @@ API_PATH = '{0}post'.format(HOSTNAME)
 
 
 def handler(event, context):
-    recipe_response = send_cake_recipe(event["spice"])
-    return loads(recipe_response.content.decode('utf-8'))
+    if "spice" in event:
+        recipe_response = send_cake_recipe(event["spice"])
+        return loads(recipe_response.content.decode('utf-8'))
+    else:
+        return {
+            "statusCode": 200,
+            "body": dumps(
+                {
+                    "Bad recipe": "No spice passed to cake recipe",
+                }
+            ),
+        }
+

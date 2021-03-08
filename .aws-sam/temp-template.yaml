@@ -6,7 +6,7 @@ Resources:
       MemorySize: 192
       Handler: src/app.handler
       CodeUri: /Users/bobbyy/Coding/demo_lambda
-      Runtime: python3.7
+      Runtime: python3.8
       Environment:
         Variables:
           SECRET_SAUCE: raspberry_ripple
