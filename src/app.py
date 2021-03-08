@@ -8,12 +8,12 @@ def get_secret_ingrediant():
     return os.environ.get('SECRET_SAUCE')
 
 
-def get_all_ingredients(s):
+def get_all_ingredients(spice):
     return {
         "ingrediant_1": "sugar",
         "ingrediant_2": "butter",
         "secret_sauce": get_secret_ingrediant(),
-        "spice": s
+        "spice": spice
     }
 
 
