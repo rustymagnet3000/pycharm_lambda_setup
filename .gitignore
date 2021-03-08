@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 .idea
 
+# AWS-SAM
+.aws-sam
+
 # zip file generated with all dependencies
 my-deployment-package.zip
 package/

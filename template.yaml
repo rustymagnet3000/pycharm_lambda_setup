@@ -18,9 +18,20 @@ Resources:
         HelloWorld:
           Type: Api
           Properties:
-            Path: /src
-            Method: get
+            Path: /demo-lambda
+            Method: post
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: .
       DockerTag: python3.8-v1
+
+Outputs:  # Required when you use `sam deploy`. Gives you the information to run lambda.
+  DemoLambdaApi:
+    Description: "API Gateway endpoint URL for Prod stage for Demo Lambda function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Stage/demo-lambda"
+  DemoLambdaFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt DemoLambdaFunction.Arn
+  DemoLambdaFunctionIamRole:
+    Description: "Implicit IAM Role created for Demo Lambda function"
+    Value: !GetAtt DemoLambdaFunctionRole.Arn

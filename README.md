@@ -98,7 +98,14 @@ If you already have a project, just copy the `template.yaml` file that `sam` rea
 
 ![sam_and_pycharm](.README_images/sam_and_dockerfile.png)
 
-Or, you can invoke the the `AWS-SAM` set-up from `Terminal` with `sam local invoke DemoLambdaFunction`.
+Or, you can invoke the the `AWS-SAM` set-up from `Terminal` with:
+
+```bash
+sam build
+sam local invoke DemoLambdaFunction
+# alternative single line command 
+sam build --cached --parallel && sam local invoke DemoLambdaFunction 
+```
 
 ## Deploy to `AWS Lambda` from PyCharm
 
