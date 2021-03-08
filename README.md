@@ -1,18 +1,19 @@
-# A simple AWS Lambda with PyCharm
+# Get a cake recipe, with PyCharm, Docker and AWS Lambda
 
-A simple `Python` handler that sends a cake recipe to `httpbin.org`.  The server echos back the recipe. 
+A simple `Python function` that sends a cake recipe to `httpbin.org`.  The server echos back the recipe.
 
 It is single `HTTP Post` request with a single `environment variable`.
 
-### Run Lambda from within PyCharm
+## Run an AWS Lambda from within PyCharm
 
-You can configure `PyCharm` in almost anyway with `plug-ins`:
+You can configure `PyCharm` in many different ways with `PyCharm plug-ins` and `AWS` helpers:
 
 <!-- TOC depthfrom:2 depthto:2 withlinks:true updateonsave:true orderedlist:false -->
 
-- [Run lambda locally, inside PyCharm](#run-lambda-locally-inside-pycharm)
+- [Run an AWS Lambda from within PyCharm](#run-an-aws-lambda-from-within-pycharm)
+- [Run lambda locally, inside PyCharm, with a shell script](#run-lambda-locally-inside-pycharm-with-a-shell-script)
 - [Run lambda locally, with sam](#run-lambda-locally-with-sam)
-- [Run lambda locally, with sam + Dockerfile](#run-lambda-locally-with-sam--dockerfile)
+- [Run lambda locally, with AWS SAM and a Dockerfile](#run-lambda-locally-with-aws-sam-and-a-dockerfile)
 - [Deploy to AWS Lambda from PyCharm](#deploy-to-aws-lambda-from-pycharm)
 - [Deploy to AWS Lambda from command line](#deploy-to-aws-lambda-from-command-line)
 - [Run Unit Tests locally](#run-unit-tests-locally)
@@ -22,11 +23,13 @@ You can configure `PyCharm` in almost anyway with `plug-ins`:
 
 After setting up new `configurations` my final `PyCharm` setup was:
 
+![config_options_b](.README_images/config_options_b.png)
+![](.README_images/config_options_c.png)
 ![config_options](.README_images/pycharm_config_options.png)
 
-## Run lambda locally, inside PyCharm
+## Run lambda locally, inside PyCharm, with a shell script
 
-The quickest way to run a `lambda` inside of `PyCharm` used a `shell-script`.
+The quickest way to run a `lambda` inside of `PyCharm` used a `shell script`.
 
 CHeck the `Jetbrains plug-in` is actually installed:
 
@@ -53,6 +56,10 @@ python-lambda-local -f "$1" "$2" "$3"
 
 ## Run lambda locally, with sam
 
+From [Amazon](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html):
+
+> AWS SAM provides you with a command line tool, the AWS SAM CLI, that makes it easy for you to create and manage serverless applications.
+
 Get the `aws-sam-cli` client:
 
 ```bash
@@ -75,17 +82,23 @@ Then specify that you want to run function inside a container:
 
 ![container-step](.README_images/765e0c94.png)
 
-## Run lambda locally, with sam + Dockerfile
+## Run lambda locally, with AWS SAM and a Dockerfile
 
-Amazon released [instructions](https://aws.amazon.com/blogs/compute/using-container-image-support-for-aws-lambda-with-aws-sam/) on this option. From the command line you can `sam init` and select options:
+Amazon released [instructions](https://aws.amazon.com/blogs/compute/using-container-image-support-for-aws-lambda-with-aws-sam/) on this option. 
+
+From the command line you can type `sam init`.   `AWS SAM` will auto create an entire Python project within seconds. 
+
+To try this option, select options:
 
 1. AWS Quick Start Templates
 2. Image
 3. Amazon/python3.8-base
 
-This will create a demo project for you.  Importantly, it will create the `template.yarn` file that `sam` reads.  From within PyCharm you can then create a `new configuration` that is the same as the previous but this one reads from the `template.yarn`.
+This will create a demo complete `lambda` project.  
 
+If you already have a project, just copy the `template.yaml` file that `sam` reads.  Within PyCharm you can now create a `new configuration` that points to the `yaml` file:
 
+![sam_and_pycharm](.README_images/sam_and_dockerfile.png)
 
 ## Deploy to `AWS Lambda` from PyCharm
 
@@ -98,6 +111,8 @@ For more details:
 <https://medium.com/axcess-io/executing-aws-lambda-locally-in-pycharm-and-deploy-to-aws-3b38ab459a61>
 
 ## Deploy to `AWS Lambda` from command line
+
+> AWS SAM provides local development support for zip-based and container-based Lambda functions. 
 
 ### Create
 
