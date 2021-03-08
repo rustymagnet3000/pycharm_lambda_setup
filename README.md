@@ -6,7 +6,7 @@ It is single `HTTP Post` request with a single `environment variable`.
 
 ## Run an AWS Lambda from within PyCharm
 
-You can configure `PyCharm` in many different ways with `PyCharm plug-ins` and `AWS` helpers:
+You can configure `PyCharm` in many ways with `PyCharm plug-ins` and `AWS` helpers:
 
 <!-- TOC depthfrom:2 depthto:2 withlinks:true updateonsave:true orderedlist:false -->
 
@@ -23,9 +23,7 @@ You can configure `PyCharm` in many different ways with `PyCharm plug-ins` and `
 
 After setting up new `configurations` my final `PyCharm` setup was:
 
-![config_options_b](.README_images/config_options_b.png)
-![](.README_images/config_options_c.png)
-![config_options](.README_images/pycharm_config_options.png)
+![config_options_c](.README_images/config_options_c.png)
 
 ## Run lambda locally, inside PyCharm, with a shell script
 
@@ -100,6 +98,8 @@ If you already have a project, just copy the `template.yaml` file that `sam` rea
 
 ![sam_and_pycharm](.README_images/sam_and_dockerfile.png)
 
+Or, you can invoke the the `AWS-SAM` set-up from `Terminal` with `sam local invoke DemoLambdaFunction`.
+
 ## Deploy to `AWS Lambda` from PyCharm
 
 After you have the `aws-sam-cli` client:
@@ -128,18 +128,19 @@ aws lambda create-function \
 ### Compress code and dependencies
 
 ```bash
-pip3 install -r requirements.txt --target ./package
+# the --upgrade replaces existing directories
+pip3 install -r requirements.txt --target ./package --upgrade
 cd package
 zip -r ../my-deployment-package.zip .
 cd ..
-zip -g my-deployment-package.zip app.py
+zip -g my-deployment-package.zip ./src/
 ```
 
 ### Update
 
 Code change:
 
-`zip -g my-deployment-package.zip demo_lambda.py`
+`zip -g my-deployment-package.zip app.py`
 
 Then upload:
 
