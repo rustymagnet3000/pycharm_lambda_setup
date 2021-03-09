@@ -27,7 +27,8 @@ API_PATH = '{0}post'.format(HOSTNAME)
 
 
 def handler(event, context):
-    if "spice" in event:
+    rec_body = dumps(event)
+    if "spice" in rec_body:
         recipe_response = send_cake_recipe(event["spice"])
         return loads(recipe_response.content.decode('utf-8'))
     else:

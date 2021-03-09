@@ -1,4 +1,5 @@
 import app
+import testutils
 from requests.models import Response
 
 
@@ -24,3 +25,9 @@ def test_send_cake_recipe():
 
 def test_get_environment_variable():
     assert app.get_secret_ingrediant() in 'chocolate'
+
+
+def test_that_lambda_returns_correct_message(self):
+    payload = testutils.invoke_function_and_get_message('app.handler')
+    assert 'Bad recipe' in payload
+

@@ -10,13 +10,7 @@ __pycache__/
 # zip file generated with all dependencies
 my-deployment-package.zip
 package/
-response.json
-out.txt
-.aws-sam/build
-ImportToken*
-PublicKey*
-Plaintext*
-EncryptedKeyMaterial*
+aws_config/
 
 # CircleCI intermediate file not required
 process.yml

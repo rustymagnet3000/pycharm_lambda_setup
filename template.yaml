@@ -25,9 +25,9 @@ Resources:
       DockerContext: .
       DockerTag: python3.8-v1
 
-Outputs:  # Required when you use `sam deploy`. Gives you the information to run lambda.
+Outputs:  # Required when you use `sam deploy`. Gives information to run lambda via API Gateway
   DemoLambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for Demo Lambda function"
+    Description: "API Gateway endpoint URL for Staging environment for Demo Lambda function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Stage/demo-lambda"
   DemoLambdaFunction:
     Description: "Hello World Lambda Function ARN"
