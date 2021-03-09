@@ -14,4 +14,4 @@ idna~=2.10
 pyparsing~=2.4.7
 boto3~=1.17.19
 testutils~=0.2.0
-django-testutils~=0.1.3
+botocore~=1.20.19
