@@ -1,6 +1,20 @@
-import app
-import testutils
+import json
 from requests.models import Response
+
+import app
+
+
+def invoke_function_and_get_message(function_name):
+    lambda_client = app.get_lambda_client()
+    response = lambda_client.invoke(
+        FunctionName=function_name,
+        InvocationType='RequestResponse'
+    )
+    return json.loads(
+        response['Payload']
+        .read()
+        .decode('utf-8')
+    )
 
 
 def generate_bad_response():
@@ -27,7 +41,7 @@ def test_get_environment_variable():
     assert app.get_secret_ingrediant() in 'chocolate'
 
 
-def test_that_lambda_returns_correct_message(self):
-    payload = testutils.invoke_function_and_get_message('app.handler')
+def test_that_lambda_returns_correct_message():
+    payload = invoke_function_and_get_message('lambda')
     assert 'Bad recipe' in payload
 
