@@ -1,6 +1,7 @@
 import pytest
 from requests.models import Response
 from src import app
+import moto
 
 
 def generate_bad_response():
