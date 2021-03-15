@@ -1,23 +1,6 @@
-import json
+import pytest
 from requests.models import Response
-import boto3
-from moto import mock_lambda
-import src
-
-# https://docs.pytest.org/en/stable/goodpractices.html
-
-
-def invoke_function_and_get_message(function_name):
-    lambda_client = boto3.client('lambda', region_name='eu-west-1')
-    response = lambda_client.invoke(
-        FunctionName=function_name,
-        InvocationType='RequestResponse'
-    )
-    return json.loads(
-        response['Payload']
-        .read()
-        .decode('utf-8')
-    )
+from src import app
 
 
 def generate_bad_response():
@@ -30,7 +13,7 @@ def generate_bad_response():
 
 
 def test_unauthorized_send_cake_recipe(mocker):
-    mocker.patch('app.send_cake_recipe', return_value=generate_bad_response())
+    mocker.patch('src.app.send_cake_recipe', return_value=generate_bad_response())
     response = app.send_cake_recipe("bananas")
     assert response.status_code == 401
 
@@ -44,14 +27,16 @@ def test_get_environment_variable():
     assert app.get_secret_ingrediant() in 'chocolate'
 
 
-@mock_lambda
-def test_that_lambda_returns_correct_message():
-    payload = {"args": {}, "data": "", "files": {},
-               "form": {"ingrediant_1": "sugar", "ingrediant_2": "butter", "spice": "nutmeg"},
-               "headers": {"Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Content-Length": "51",
-                           "Content-Type": "application/x-www-form-urlencoded", "Host": "httpbin.org",
-                           "User-Agent": "python-requests/2.25.1",
-                           "X-Amzn-Trace-Id": "Root=1-604ef622-1e2b8d1c300ddd233ab26674"}, "json": "",
-               "origin": "92.234.25.98", "url": "https://httpbin.org/post"}
-    print(payload)
-    assert 'Bad recipe' in payload
+class TestHandler:
+
+    @pytest.fixture
+    def mock_event(self):
+        return {"spice": "herbs"}
+
+    def test_mock_event_is_dict(self, mock_event):
+        assert type(mock_event) is dict
+
+    def test_lambda_live(self, mock_event):
+        result = app.handler(mock_event, None)
+        print(result)
+        assert True

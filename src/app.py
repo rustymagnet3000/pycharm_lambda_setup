@@ -31,7 +31,8 @@ API_PATH = '{0}post'.format(HOSTNAME)
 
 
 def handler(event, context):
-    LOGGER.info("Handler called!\tevent type:{0}".format(type(event)))
+    LOGGER.info("Handler called!")
+
     if "spice" in event:
         recipe_response = send_cake_recipe(event["spice"])
         recipe_json = loads(recipe_response.content.decode('utf-8'))
