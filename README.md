@@ -25,6 +25,18 @@ After setting up new `configurations` my final `PyCharm` setup was:
 
 ![config_options_c](.README_images/config_options_c.png)
 
+## Set AWS Profile for local tests
+
+Add a user with `AWSLambdaBasicExecutionRole`.  This also gives permission to upload logs to `CloudWatch`. 
+
+```bash
+aws configure --profile rm_foobar    
+AWS Access Key ID [None]: xxPWEG
+AWS Secret Access Key [None]: xxo+e9
+Default region name [None]: eu-west-2
+Default output format [None]: text
+```
+
 ## Run lambda locally, inside PyCharm, with a shell script
 
 The quickest way to run a `lambda` inside of `PyCharm` used a `shell script`.
